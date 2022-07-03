@@ -6,7 +6,7 @@ static bool bDebugMsg = true;
 
 void printLogs(bool* _bDebugMsg, const char* _msg);
 void printLogs(const char* _msg);
-
+void printReceiveMsg(const char* _msg);
 
 int main()
 {
@@ -55,7 +55,8 @@ int main()
 	int iLen = sizeof(sockaddr);
 	xSocket = accept(xSocket, (sockaddr*)&xLocal, &iLen);
 
-	printLogs("Server: Client Connected!\nReceiving text");
+	printLogs("Server: Client Connected!");
+	printLogs("Server: Ready to Receive text!");
 	
 	//Receive text
 	char sBuffer[1024];
@@ -65,8 +66,7 @@ int main()
 		if (iLen > 0)
 		{
 			sBuffer[iLen] = '\0';
-			printLogs("Server:\n\tReceived text: ");
-			printLogs(sBuffer);
+			printReceiveMsg(sBuffer);
 		}
 		else
 		{
@@ -95,5 +95,13 @@ void printLogs(const char* _msg)
 	if (bDebugMsg)
 	{
 		std::cout << "\n\n" << _msg << "\n\n";
+	}
+}
+
+void printReceiveMsg(const char* _msg)
+{
+	if (bDebugMsg)
+	{
+		std::cout << "\nServer:\n\tReceived text : " << _msg << "\n";
 	}
 }
