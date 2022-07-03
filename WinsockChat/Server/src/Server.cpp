@@ -17,7 +17,12 @@ int main()
 
 	//Create Socket
 	SOCKET xSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-
+	if (xSocket == INVALID_SOCKET)
+	{
+		printLogs("ERROR! *** Server: Create Socket Failed");
+		return -1;
+	}
+	
 	//Struct for local address
 	struct sockaddr_in xLocal;
 	xLocal.sin_family = AF_INET;
@@ -30,7 +35,7 @@ int main()
 	{
 		printLogs(&bDebugMsg, "Server: Binding error!");
 		
-		return 1;
+		return -1;
 	}
 
 	printLogs("Server: Waiting Connection...");
