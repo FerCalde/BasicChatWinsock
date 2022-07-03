@@ -38,6 +38,14 @@ int main()
 		return -1;
 	}
 
+	//Specificate the Listening Connections that are available for the Socket
+	//if(listen(xSocket, SOMAXCONN) == -1)
+	if(listen(xSocket, 1) == -1)
+	{
+		printLogs("Server: Listening error!");
+		return -1;
+	}
+	
 	printLogs("Server: Waiting Connection...");
 
 	/****
@@ -49,6 +57,25 @@ int main()
 
 	printLogs("Server: Client Connected!\nReceiving text");
 	
+	//Receive text
+	char sBuffer[1024];
+	do
+	{
+		iLen = recv(xSocket, sBuffer, 1023, 0);
+		if (iLen > 0)
+		{
+			sBuffer[iLen] = '\0';
+			printLogs("Server:\n\tReceived text: ");
+			printLogs(sBuffer);
+		}
+		else
+		{
+			printLogs( "Server: Client Disconnected!");
+			break;
+		}
+		
+	} while (true);
+
 	return 1; //Quizas no hace falta
 }
 

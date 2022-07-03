@@ -14,7 +14,8 @@ int main()
 	//Initialize
 	WSADATA xWsa;
 	WSAStartup(MAKEWORD(2, 2), &xWsa);
-
+	printLogs("Client: Initialize Lib 'WSA'");
+	
 	//Create Socket
 	SOCKET xSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	xSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -39,6 +40,27 @@ int main()
 		printLogs("ERROR! *** Client: Connect Failed!");
 		return -1;
 	}
+
+	//Send Messages
+	char sBuffer[1024];
+	int iLen = 0;
+	do
+	{
+		std::cout << "(Client) text to send: ";
+		std::cin >> sBuffer;
+		
+		iLen = send(xSocket, sBuffer, strlen(sBuffer), 0);
+		if (iLen == -1)
+		{
+			printLogs("ERROR! *** Client: Send Failed!");
+			return -1;
+		}
+		/*else
+		{
+			printLogs("INFO! *** Client: Send Successful!");
+		}*/
+		
+	} while (true);
 
 }
 
