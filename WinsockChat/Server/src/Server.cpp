@@ -74,9 +74,11 @@ int main()
 			break;
 		}
 		
-	} while (true);
+	} while (iLen>0 && strcmp(sBuffer, "exit") != 0);
+	
+	closesocket(xSocket);
 
-	return 1; //Quizas no hace falta
+	return 0; 
 }
 
 

@@ -51,8 +51,9 @@ int main()
 	int iLen = 0;
 	do
 	{
-		std::cout << "(Client) text to send: ";
-		std::cin >> sBuffer;
+		std::cout << "(Client) text to send (\"exit\" to close the app): ";
+		//std::cin >> sBuffer;
+		fgets(sBuffer, 1023, stdin);
 		
 		iLen = send(xSocket, sBuffer, strlen(sBuffer), 0);
 		if (iLen == -1)
@@ -65,8 +66,10 @@ int main()
 			printLogs("INFO! *** Client: Send Successful!");
 		}*/
 		
-	} while (true);
+	} while (iLen !=-1 && strcmp(sBuffer, "exit") != 0);
 
+	closesocket(xSocket); //Close Socket
+	return 0;
 }
 
 void printLogs(bool* _bDebugMsg, const char* _msg)
